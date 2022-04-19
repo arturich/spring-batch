@@ -21,6 +21,9 @@ public class SampleJob {
 	@Autowired
 	private StepBuilderFactory stepBuilderFactory;
 	
+	@Autowired
+	Tasklet secondTasklet;
+	
 	@Bean
 	public Job firstJob()
 	{
@@ -53,19 +56,19 @@ public class SampleJob {
 	private Step secondStep()
 	{
 		return stepBuilderFactory.get("Second Step")
-		.tasklet(secondTask())
+		.tasklet(secondTasklet)
 		.build();
 	}
 	
-	private Tasklet secondTask()
-	{
-		return new Tasklet() {
-			
-			@Override
-			public RepeatStatus execute(StepContribution contribution, ChunkContext chunkContext) throws Exception {
-				System.out.println("This is second tasklet step");
-				return RepeatStatus.FINISHED;
-			}
-		};
-	}
+//	private Tasklet secondTask()
+//	{
+//		return new Tasklet() {
+//			
+//			@Override
+//			public RepeatStatus execute(StepContribution contribution, ChunkContext chunkContext) throws Exception {
+//				System.out.println("This is second tasklet step");
+//				return RepeatStatus.FINISHED;
+//			}
+//		};
+//	}
 }
