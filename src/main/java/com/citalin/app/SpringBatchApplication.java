@@ -7,7 +7,9 @@ import org.springframework.context.annotation.ComponentScan;
 
 @SpringBootApplication
 @EnableBatchProcessing
-@ComponentScan({"com.citalin.config","com.citalin.service;"})
+@ComponentScan({"com.citalin.config",
+				"com.citalin.service",
+				"com.citalin.listener"})
 public class SpringBatchApplication {
 
 	public static void main(String[] args) {
