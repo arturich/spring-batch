@@ -1,6 +1,7 @@
 package com.citalin.service;
 
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 import org.springframework.batch.core.Job;
@@ -12,6 +13,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.scheduling.annotation.Async;
 import org.springframework.stereotype.Service;
+
+import com.citalin.entity.JobParamsRequestEntity;
 
 @Service
 public class JobService {
@@ -28,10 +31,14 @@ public class JobService {
 	Job secondJob;
 	
 	@Async
-	public void startJob(String jobName)
+	public void startJob(String jobName, List<JobParamsRequestEntity> jobParamsRequestEntity)
 	{
 		Map<String, JobParameter> params = new HashMap<>();
 		params.put("currentTime", new JobParameter(System.currentTimeMillis()));
+		
+		jobParamsRequestEntity.stream()
+		.forEach(jbp -> params.put(jbp.getParamKey(), 
+				new JobParameter(jbp.getParamValue())));
 		
 		JobParameters jobParameters = new JobParameters(params);
 		
