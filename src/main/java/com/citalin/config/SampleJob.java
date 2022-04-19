@@ -8,6 +8,9 @@ import org.springframework.batch.core.configuration.annotation.JobBuilderFactory
 import org.springframework.batch.core.configuration.annotation.StepBuilderFactory;
 import org.springframework.batch.core.launch.support.RunIdIncrementer;
 import org.springframework.batch.core.step.tasklet.Tasklet;
+import org.springframework.batch.item.ItemProcessor;
+import org.springframework.batch.item.ItemReader;
+import org.springframework.batch.item.ItemWriter;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.context.annotation.Bean;
@@ -36,8 +39,17 @@ public class SampleJob {
 	@Autowired
 	StepExecutionListener firstStepListener;
 	
+	@Autowired
+	ItemReader<Integer> firstItemReader;
 	
-	@Bean
+	@Autowired
+	ItemProcessor<Integer,Long> firstItemProcessor;
+	
+	@Autowired
+	ItemWriter<Long> firstItemWriter;
+	
+	
+	//@Bean
 	public Job firstJob()
 	{
 		return jobBuilderFactory.get("First Job")
@@ -88,6 +100,23 @@ public class SampleJob {
 //		};
 //	}
 	
+	@Bean
+	public Job secondJob()
+	{
+		return jobBuilderFactory.get("Second Job")
+				.incrementer(new RunIdIncrementer())
+				.start(firstChunkStep())
+				.build();
+	}
 	
+	private Step firstChunkStep()
+	{
+		return stepBuilderFactory.get("First Chunk Step")
+				.<Integer,Long>chunk(3)	
+				.reader(firstItemReader)
+				.processor(firstItemProcessor)
+				.writer(firstItemWriter)
+				.build();
+	}
 	
 }

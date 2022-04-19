@@ -9,7 +9,10 @@ import org.springframework.context.annotation.ComponentScan;
 @EnableBatchProcessing
 @ComponentScan({"com.citalin.config",
 				"com.citalin.service",
-				"com.citalin.listener"})
+				"com.citalin.listener",
+				"com.citalin.processor",
+				"com.citalin.reader",
+				"com.citalin.writer"})
 public class SpringBatchApplication {
 
 	public static void main(String[] args) {
