@@ -3,6 +3,7 @@ package com.citalin.config;
 import org.springframework.batch.core.Job;
 import org.springframework.batch.core.JobExecutionListener;
 import org.springframework.batch.core.Step;
+import org.springframework.batch.core.StepExecutionListener;
 import org.springframework.batch.core.configuration.annotation.JobBuilderFactory;
 import org.springframework.batch.core.configuration.annotation.StepBuilderFactory;
 import org.springframework.batch.core.launch.support.RunIdIncrementer;
@@ -32,6 +33,9 @@ public class SampleJob {
 	@Autowired
 	JobExecutionListener firstJobListener;
 	
+	@Autowired
+	StepExecutionListener firstStepListener;
+	
 	
 	@Bean
 	public Job firstJob()
@@ -49,6 +53,7 @@ public class SampleJob {
 	{
 		return stepBuilderFactory.get("First Step")
 		.tasklet(firstTasklet)
+		.listener(firstStepListener)
 		.build();
 	}
 	
@@ -82,4 +87,7 @@ public class SampleJob {
 //			}
 //		};
 //	}
+	
+	
+	
 }
