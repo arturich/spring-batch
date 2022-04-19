@@ -4,6 +4,7 @@ import org.springframework.batch.core.configuration.annotation.EnableBatchProces
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.context.annotation.ComponentScan;
+import org.springframework.scheduling.annotation.EnableAsync;
 
 @SpringBootApplication
 @EnableBatchProcessing
@@ -12,7 +13,9 @@ import org.springframework.context.annotation.ComponentScan;
 				"com.citalin.listener",
 				"com.citalin.processor",
 				"com.citalin.reader",
-				"com.citalin.writer"})
+				"com.citalin.writer",
+				"com.citalin.controller"})
+@EnableAsync
 public class SpringBatchApplication {
 
 	public static void main(String[] args) {

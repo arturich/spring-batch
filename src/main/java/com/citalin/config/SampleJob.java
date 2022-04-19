@@ -49,7 +49,7 @@ public class SampleJob {
 	ItemWriter<Long> firstItemWriter;
 	
 	
-	//@Bean
+	@Bean
 	public Job firstJob()
 	{
 		return jobBuilderFactory.get("First Job")
@@ -105,14 +105,14 @@ public class SampleJob {
 	{
 		return jobBuilderFactory.get("Second Job")
 				.incrementer(new RunIdIncrementer())
-				.start(firstChunkStep())
+				.start(firstChunkStep())				
 				.build();
 	}
 	
 	private Step firstChunkStep()
 	{
 		return stepBuilderFactory.get("First Chunk Step")
-				.<Integer,Long>chunk(3)	
+				.<Integer,Long>chunk(4)	
 				.reader(firstItemReader)
 				.processor(firstItemProcessor)
 				.writer(firstItemWriter)
