@@ -17,7 +17,7 @@ import org.springframework.scheduling.annotation.EnableScheduling;
 				"com.citalin.writer",
 				"com.citalin.controller"})
 @EnableAsync
-@EnableScheduling
+//@EnableScheduling
 public class SpringBatchApplication {
 
 	public static void main(String[] args) {
